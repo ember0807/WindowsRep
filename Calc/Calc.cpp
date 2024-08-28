@@ -113,7 +113,7 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				CreateWindowEx
 				(
 					NULL, "Button", sz_digit,
-					WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+					WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON| BS_BITMAP,
 					g_i_START_X_BUTTON + j * (g_i_BUTTON_SIZE + g_i_INTERVAL),
 					g_i_START_Y_BUTTON + i * (g_i_BUTTON_SIZE + g_i_INTERVAL),
 					g_i_BUTTON_SIZE, g_i_BUTTON_SIZE,
@@ -123,20 +123,28 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 					NULL
 				);
 			}
-			CreateWindowEx
+			CHAR sz_dir[MAX_PATH]{};
+			GetCurrentDirectory(MAX_PATH, sz_dir);
+			//C:\c#\WindowsRep\Calc
+			MessageBox(hwnd, sz_dir, "Info", MB_OK);
+			HBITMAP hBitmap0 = (HBITMAP)LoadImage(GetModuleHandle(NULL), "buttons\\0.bmp", IMAGE_BITMAP, g_i_BUTTON_DOUBLE_SIZE, g_i_BUTTON_SIZE, LR_LOADFROMFILE);
+			SendMessage(hwnd, WM_SETICON, 0, (LPARAM)hBitmap0);
+			HWND hButton0 = CreateWindowEx
 			(
-				NULL, "Button", "0",
-				WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+				NULL, "Button", NULL,
+				WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON|BS_BITMAP,
 				g_i_START_X_BUTTON, g_i_START_Y_BUTTON + (g_i_BUTTON_SIZE + g_i_INTERVAL) * 3,
 				g_i_BUTTON_DOUBLE_SIZE, g_i_BUTTON_SIZE,
 				hwnd,
 				(HMENU)IDC_BUTTON_0,
-				NULL,
+				GetModuleHandle(NULL),
 				NULL
 			);
+			SendMessage(hButton0, BM_SETIMAGE, (WPARAM)IMAGE_BITMAP, (LPARAM)hBitmap0);
+			HBITMAP hBitmapT = (HBITMAP)LoadImage(NULL, "buttons\\png.tga", IMAGE_BITMAP, g_i_BUTTON_SIZE, g_i_BUTTON_SIZE, LR_LOADFROMFILE);
 			CreateWindowEx
 			(
-				NULL, "Button", ".",
+				NULL, "Button", NULL,
 				WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
 
 				g_i_START_X_BUTTON + g_i_BUTTON_DOUBLE_SIZE + g_i_INTERVAL,
@@ -146,7 +154,7 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 				hwnd,
 				(HMENU)IDC_BUTTON_POINT,
 				NULL,
-				NULL
+				(LPVOID)hBitmapT
 			);
 			////////////////////// Operations: //////////////////////////
 			CONST CHAR sz_operations[] = "+-*/";
