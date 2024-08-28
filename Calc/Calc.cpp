@@ -126,7 +126,7 @@ INT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			CHAR sz_dir[MAX_PATH]{};
 			GetCurrentDirectory(MAX_PATH, sz_dir);
 			//C:\c#\WindowsRep\Calc
-			MessageBox(hwnd, sz_dir, "Info", MB_OK);
+			//MessageBox(hwnd, sz_dir, "Info", MB_OK);
 			HBITMAP hBitmap0 = (HBITMAP)LoadImage(GetModuleHandle(NULL), "buttons\\0.bmp", IMAGE_BITMAP, g_i_BUTTON_DOUBLE_SIZE, g_i_BUTTON_SIZE, LR_LOADFROMFILE);
 			SendMessage(hwnd, WM_SETICON, 0, (LPARAM)hBitmap0);
 			HWND hButton0 = CreateWindowEx
